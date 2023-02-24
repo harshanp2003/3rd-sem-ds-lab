@@ -239,7 +239,7 @@ int main()
            case 10:exit(0);
            
            default:printf("Invalid Choice\n");
-                    break;        
+                   break;        
        }
    }  
 }
