@@ -65,7 +65,7 @@ int main() {
         printf("Enter your choice: ");
         scanf("%d", &choice);
         switch(choice) {
-            case 1: printf("Enter data and its prt: ");
+            case 1: printf("\nEnter data: ");
                     scanf("%d", &data);
                     insert(&q, data);
                     break;
