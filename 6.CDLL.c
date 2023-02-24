@@ -109,14 +109,16 @@ void search(struct node *first,int key)
 struct node *delete(struct node *first)
  {
      int i,x,pos;
-     struct node *p,*q,*a;
+     struct node *l,*p,*q,*a;
      printf("Enter the position to be deleted\n");
     scanf("%d",&pos);
     if(pos==1)
      {
          p=first;
       first=first->next;
-      first->prev=NULL;
+      for(l=first;l->next!=p;l=l->next)
+      {}
+       l->next=first;
       x=p->data;
       free(p);
       printf("Deleted data is : %d\n",x);
