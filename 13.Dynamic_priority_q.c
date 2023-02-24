@@ -72,7 +72,7 @@ int main() {
         switch(choice) {
             case 0:create(&q);
                    break;
-            case 1: printf("Enter data and its prt: ");
+            case 1: printf("\nEnter data  ");
                     scanf("%d", &data);
                     insert(&q, data);
                     break;
