@@ -1,4 +1,4 @@
-#include <stdio.h>// circular single updated
+#include <stdio.h>// circular single updated for only 3 fns
 #include<stdlib.h>
 struct node
 {
