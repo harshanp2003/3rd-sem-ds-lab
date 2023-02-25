@@ -120,11 +120,9 @@ int main()
     int key,f,data,ch;
     printf("Enter the value of root node\n");
     scanf("%d",&r->data);
-    
-    printf("1.Build tree\n2.Preorder\n3.Inorder\n4.Postorder\n5.search\n6.totalnodes\n7.height\n8.exit");
-    
     while(1)
   {
+        printf("1.Build tree\n2.Preorder\n3.Inorder\n4.Postorder\n5.search\n6.totalnodes\n7.height\n8.exit");
         printf("\nEnter choice\n");
         scanf("%d",&ch);
         switch(ch)
