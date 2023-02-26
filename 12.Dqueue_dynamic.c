@@ -23,8 +23,8 @@ void delr(struct Q *q)
         return;
     }
     int x;
-    x=q->A[q->r];
-    q->r--;
+    x=q->A[q->r--];
+ 
     printf("%d is the deleted element\n",x);
 }
 void insertf(struct Q *q,int data)
@@ -34,7 +34,8 @@ void insertf(struct Q *q,int data)
         printf("Insertion not possible\n");
        return;
    }
-   if(q->f!=0)
+  // if(q->f!=0)els
+   else
    {
        q->A[--q->f]=data;
        return;
@@ -46,8 +47,15 @@ void enqu(struct Q *q,int data)
 {
  
     if(q->r==q->size-1)
+    {
        printf("Overflow\n");
-    else
+       printf("Reallocating memory dynamically\n");
+       int *t=realloc(q->A,2*q->size*sizeof(int));
+       q->r=q->size-1;
+       q->size=2*q->size;
+       q->A=t;
+    }
+    
        q->A[++(q->r)]=data;
 }
 void deque(struct Q *q)
@@ -79,34 +87,34 @@ void display(struct Q *q)
 void main()
 {
     int n,ch;
-    struct Q q;
-    q.f=0;
-    q.r=-1;
+    struct Q *q=malloc(sizeof(struct Q));
+    q->f=0;
+    q->r=-1;
    /* printf("Enter the value of n\n");
     scanf("%d",&q.size);*/
     while(1)
     {
-        printf("0.Create\n1.Insertf\n2.Insert\n3.Delete\n4.Display\n5.Exit\n6.deleterear\n");
+        printf("0.Create\n1.Insertf\n2.Insertrear\n3.Deletefront\n4.Display\n5.Exit\n6.deleterear\n");
         printf("Enter your choice\n");
         scanf("%d",&ch);
         switch(ch)
         {
-            case 0:create(&q);
+            case 0:create(q);
                    break;
             case 1: printf("Enter the value of n\n");
                     scanf("%d",&n);
-                    insertf(&q,n);
+                    insertf(q,n);
                     break;
             case 2: printf("Enter n\n");
                     scanf("%d",&n);
-                    enqu(&q,n);
+                    enqu(q,n);
                     break;
-            case 3:deque(&q);
+            case 3:deque(q);
                    break;
-            case 4:display(&q);
+            case 4:display(q);
                    break;
             case 5:exit(0);
-            case 6: delr(&q);
+            case 6: delr(q);
                     break;
                 
             default:printf("Invalid Choice\n");
