@@ -33,6 +33,41 @@ struct node *create(struct node *first)
     l->next=first;
     first->prev=l;
 }
+struct node *insertfront(struct node *first)
+{
+    struct node *l,*tp1;
+    int i,data,pos=1;
+    printf("Enter the data\n");
+    scanf("%d",&data);
+    if(pos==1)
+    {
+        tp1=malloc(sizeof(struct node));
+        tp1->data=data;
+        tp1->next=first;
+       
+        for(l=first;l->next!=first;l=l->next)
+        { }
+        l->next=tp1;
+         tp1->prev=l;
+        first=tp1;
+        return first;
+    }
+}
+struct node *insertrear(struct node *first)
+{
+     struct node *l,*tp1;
+    int i,data,pos=1;
+    printf("Enter the data\n");
+    scanf("%d",&data);
+    tp1=malloc(sizeof(struct node));
+    tp1->data=data;
+    l=first;
+    for(;l->next!=first;l=l->next)
+    {}
+    tp1->next=l->next;
+    l->next=tp1;
+    return first;
+}
 struct node *insert(struct node *first)
 {
     struct node *l,*tp1;
@@ -150,7 +185,7 @@ struct node *delete(struct node *first)
    
    while(1)
    {
-       printf("1.Create\n2.display\n3.search\n4.insert\n5.delete\n6.exit\n");
+       printf("1.Create\n2.display\n3.search\n4.insert\n5.delete\n6.exit\n7.insertfront\n8.insertrear\n");
        printf("Enter choice\n");
        scanf("%d",&ch);
        switch(ch)
@@ -168,6 +203,10 @@ struct node *delete(struct node *first)
             case 5:first=delete(first);
                    break;
             case 6:exit(0);
+            case 7:first=insertfront(first);
+                   break;
+            case 8:first=insertrear(first);
+                   break;
             default:printf("Invalid choice\n");
        }
    }
