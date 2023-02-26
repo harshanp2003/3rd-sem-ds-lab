@@ -109,6 +109,43 @@ struct node* insert(struct node *first,int pos,int data)
         return first;
     }
 }
+struct node *deletefront(struct node *first)
+{
+    int pos=1,x,i,data;
+    struct node *p,*q,*a;
+    if(pos==1)
+     {
+         p=first;
+         q=first;
+       for(p=first;p->next!=first;p=p->next)
+        { }
+        first=first->next;
+        p->next=first;
+        
+      x=q->data;
+      printf("\n%d is the deleted data \n",x);
+      free(q);
+      return first;
+     }
+}
+struct node *deleterear(struct node *first)
+{
+    int pos=1,x,i,data;
+    struct node *p,*q,*a;
+    p=first;
+    a=NULL;
+    for(;p->next!=first;)
+    {
+        a=p;
+        p=p->next;
+    }
+    a->next=p->next;
+    
+    x=p->data;
+    free(p);
+    return first;
+    
+}
 struct node * delete(struct node *first,int pos)
 {
     int x,i,data;
@@ -151,7 +188,7 @@ int main()
     
     while(1)
     {
-         printf("1.Create\n2.Display\n3.search\n4.insert\n5.delete\n6.exit\n");
+         printf("1.Create\n2.Display\n3.search\n4.insert\n5.delete\n6.exit\n7.deletefront\n8.deleterear\n");
          printf("Enter choice\n");
          scanf("%d",&ch);
          switch(ch)
@@ -175,6 +212,10 @@ int main()
                     first=delete(first,pos);
                     break;
              case 6:exit(0);
+             case 7:first=deletefront(first);
+                    break;
+            case 8:first=deleterear(first);
+                   break;
              default:printf("Invalid Choice\n");
                      break;
             
