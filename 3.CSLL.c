@@ -5,10 +5,11 @@ struct node
     int data;
     struct node *next;
 }*first;
+int n;
 struct node *create(struct node *first)
 {
     struct node *l,*tp;
-    int n,data,i;
+    int data,i;
     printf("Enter the no of nodes\n");
     scanf("%d",&n);
     printf("Enter the data for the 1st node\n");
@@ -150,7 +151,7 @@ struct node *sort(struct node *first,int count)   //done
           q=first->next;
           for(j=0;j<count-1-i;j++)
           {
-              if((q->data) < (p->data))
+              if((p->data) > (q->data))
               {
                   swp=q->data;
                   q->data=p->data;
@@ -192,7 +193,7 @@ int main()
     
     while(1)
     {
-         printf("1.Create\n2.Display\n3.search\n4.insert\n5.delete\n6.sort\n");
+         printf("1.Create\n2.Display\n3.search\n4.insertbyorder\n5.delete\n");
          printf("Enter choice\n");
          scanf("%d",&ch);
          switch(ch)
@@ -207,13 +208,17 @@ int main()
                      //scanf("%d",&pos);
                      printf("Enter the data\n");
                      scanf("%d",&data);
+                     
                      first=sort(first,count);
-                     first=insertbyorder(first,data);
+                     first=insert(first,n,data);
+                     first=sort(first,count+1);
+                    // first=insertbyorder(first,data);
                      break;
              case 5:first=delete(first);
                     break;
             case 6:first=sort(first,count);
                    break;
+            default:exit(0);
          }
     }
 }
