@@ -85,16 +85,31 @@ void search(struct node *first,int pos)
             l=l->next;
             count++;
         }  while(l!=first && (count+1)!=pos );
-        printf("%d is the data at positon %d\n",l->data,pos1);
+        printf("%d is the data at positon %d\n",l->data,pos);
 }
 struct node *deletebykey(struct node *first)
 {
     struct node *p,*q;
-    int x,key;
+    int f=0,x,key;
     p=first;
    q=NULL;
    printf("Enter key\n");
    scanf("%d",&key);
+   do
+   {
+       if(p->data==key)
+       {
+           f=1;
+           break;
+       }
+       p=p->next;
+   }while(p!=first);
+   if(f!=1)
+   {
+       printf("Key not present\n");
+       return first;
+   }
+   p=first;
  while(p!=NULL)
  {
      if(first->data==key)
@@ -105,7 +120,7 @@ struct node *deletebykey(struct node *first)
          free(p);
          return first;
      }
-     else
+     else 
      {
          if(p->data==key)
          {
@@ -114,10 +129,12 @@ struct node *deletebykey(struct node *first)
              free(p);
              return first;
          }
+         
      }
      q=p;
      p=p->next;
  }
+ 
 }
  int main()
 {
@@ -126,7 +143,7 @@ struct node *deletebykey(struct node *first)
    
    while(1)
    {
-       printf("1.Create\n2.display\n3.search\n4.insertbyorder\n5.deletebykey\n\6.exit\n");
+       printf("1.Create\n2.display\n3.search\n4.insertbyorder\n5.deletebykey\n6.exit\n");
        printf("Enter choice\n");
        scanf("%d",&ch);
        switch(ch)
