@@ -49,11 +49,26 @@ int  search(struct node *first,int key)
         count++;
     } while(p!=first);
     if(f==1)
-       printf("Key Present\n");
+    {
+        printf("Key Present\n");
+         printf("%d is the position\n",count+1);
+       return count+1;
+    }
+       
     else
        printf("Key absent\n");
-     printf("%d is the position\n",count+1);
-       return count;
+    
+}
+void searchbypos(struct node *first,int pos)
+{
+    struct node *p=first;
+    int count=0;
+    do
+    {
+        p=p->next;
+        count++;
+    }while(p!=first && (count+1)!=pos);
+    printf("%d is the data at position %d",p->data,pos);
 }
 int  display(struct node *first)
 {
@@ -149,7 +164,8 @@ struct node *deletebykey(struct node *first,int key)
 {
     int count;
     count=search(first,key);
-    first=delete(first,count+1);
+   
+    first=delete(first,count);
 }
 
 int main()
@@ -167,9 +183,9 @@ int main()
                     break;
              case 2:count=display(first);
                     break;
-             case 3: printf("Enter key\n");
-                    scanf("%d",&key);
-                    search(first,key);
+             case 3: printf("Enter pos\n");
+                    scanf("%d",&pos);
+                    searchbypos(first,pos);
                      break;
              case 4: printf("\nEnter the position to be inserted\n");
                      scanf("%d",&pos);
