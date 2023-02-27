@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 struct Q {
     int size;
     int f;
@@ -21,12 +20,16 @@ void insert(struct Q *q, int data) {
         printf("Q Overflow\n");
         return;
     }
-    int i, j;
+    int i;
     for (i = q->r; i >= q->f; i--)
     {
         
         if(q->A[i]>data)
-            q->A[i+1]=q->A[i];
+        {
+             q->A[i+1]=q->A[i];
+            q->A[i]=data;
+        }
+           
        else
           break;
     }
@@ -39,11 +42,10 @@ void insert(struct Q *q, int data) {
        }
    
 }
-
 int delete(struct Q *q) {
     if (q->f > q->r) {
         printf("Q Underflow\n");
-        return -1;
+        return 0;
     }
     return q->A[q->f++];
 }
@@ -55,30 +57,24 @@ void display(struct Q *q) {
     }
     printf("\n");
 }
-
 int main() {
-    struct Q q;
-    int choice, data;
-
-    
+    struct Q *q=malloc(sizeof(struct Q));
    
-    
-   
-
+    int x,choice, data;
     while(1) {
         printf("0.Create\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
         switch(choice) {
-            case 0:create(&q);
+            case 0:create(q);
                    break;
             case 1: printf("\nEnter data  ");
                     scanf("%d", &data);
-                    insert(&q, data);
+                    insert(q, data);
                     break;
-            case 2: printf("Deleted data: %d\n", delete(&q));
+            case 2: printf("Deleted data: %d\n", delete(q));
                     break;
-            case 3: display(&q);
+            case 3: display(q);
                     break;
             case 4: exit(0);
             default: printf("Invalid choice\n");
