@@ -13,6 +13,8 @@ void create(struct Q *q)
     printf("Enter the size\n");
     scanf("%d",&q->size);
     q->A=malloc(sizeof(int)*q->size);
+     q->f=0;
+    q->r=-1;
 }
 
 void delr(struct Q *q)
@@ -88,8 +90,7 @@ void main()
 {
     int n,ch;
     struct Q *q=malloc(sizeof(struct Q));
-    q->f=0;
-    q->r=-1;
+   
    /* printf("Enter the value of n\n");
     scanf("%d",&q.size);*/
     while(1)
