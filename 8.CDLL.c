@@ -113,6 +113,7 @@ struct node *delete(struct node *first)
      for(l=first;l->next!=p;l=l->next)
      {}
       l->next=first;
+        first->prev=l;
       x=p->data;
       free(p);
       printf("Deleted data is : %d\n",x);
