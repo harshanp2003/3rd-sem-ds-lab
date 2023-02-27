@@ -5,6 +5,7 @@ struct node
     int data;
     struct node *next;
 }*first;
+
 int n;
 struct node *create(struct node *first)
 {
@@ -74,32 +75,34 @@ struct node* insert(struct node *first,int pos,int data)
 {
     int i;
     struct node *l,*tp1;
-   //  printf("Enter the position to be inserted\n");
-    //scanf("%d",&pos);
+  
     
     if(pos==1)
     {
         tp1=malloc(sizeof(struct node));
     tp1->data=data;
-    //tp1->next=first;
+    
     for(l=first;l->next!=first;l=l->next)
     { }
     l->next=tp1;
     tp1->next=first;
     first=tp1;
+   
     return first;
     }
     else 
     {
         l=first;
-        for(i=1;i<pos-1;i++)
+        while(pos!=2)
         {
             l=l->next;
+            pos--;
         }
         tp1=malloc(sizeof(struct node));
         tp1->data=data;
         tp1->next=l->next;
         l->next=tp1;
+      
         return first;
     }
 }
@@ -122,6 +125,7 @@ struct node * delete(struct node *first)
       x=q->data;
       printf("\n%d is the deleted data \n",x);
       free(q);
+      
       //display(first);
       return first;
      }
@@ -137,6 +141,7 @@ struct node * delete(struct node *first)
         a->next=p->next;
         x=p->data;
         free(p);
+       printf("%d is the deleted data\n",x);
         //display(first);
         return first;
      }
@@ -163,30 +168,7 @@ struct node *sort(struct node *first,int count)   //done
       }
       return first; 
 }
-struct node *insertbyorder(struct node *first,int data)
-{
-   // first=sort(first)
-   int count=0;
-   struct node *p;
-   p=first;
-   do
-   {
-      
-       if(data> p->data && p->next!=first)
-       {
-           count++;
-           p=p->next;
-       }
-       else
-       {
-           if(p->next==first)
-                count++;
-           first=insert(first,count+1,data);
-           break;
-       }
-   }while(p!=first);
-   return first;
-}
+
 int main()
 {
     int data,pos,count,ch;
@@ -204,15 +186,14 @@ int main()
                     break;
              case 3:search(first);
                     break;
-             case 4: //printf("\nEnter the position to be inserted\n");
-                     //scanf("%d",&pos);
+             case 4: 
                      printf("Enter the data\n");
                      scanf("%d",&data);
                      
-                     first=sort(first,count);
+                     //first=sort(first,count);
                      first=insert(first,n,data);
                      first=sort(first,count+1);
-                    // first=insertbyorder(first,data);
+                   
                      break;
              case 5:first=delete(first);
                     break;
