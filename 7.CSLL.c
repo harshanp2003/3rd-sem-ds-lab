@@ -146,49 +146,14 @@ struct node *deleterear(struct node *first)
     return first;
     
 }
-struct node * delete(struct node *first,int pos)
-{
-    int x,i,data;
-    struct node *p,*q,*a;
-    
-    
-     if(pos==1)
-     {
-         p=first;
-         q=first;
-       for(p=first;p->next!=first;p=p->next)
-        { }
-        first=first->next;
-        p->next=first;
-        
-      x=q->data;
-      printf("\n%d is the deleted data \n",x);
-      free(q);
-      return first;
-     }
-      else
-     {
-         p=first;
-         a=NULL;
-         for(i=0;i<pos-1;i++)
-        {
-            a=p;
-            p=p->next;
-        }
-        a->next=p->next;
-        x=p->data;
-        free(p);
-       
-        return first;
-     }
-}
+
 int main()
 {
     int key,data,pos,count,ch;
     
     while(1)
     {
-         printf("1.Create\n2.Display\n3.search\n4.insert\n5.delete\n6.exit\n7.deletefront\n8.deleterear\n");
+         printf("1.Create\n2.Display\n3.search\n4.insert\n6.exit\n7.deletefront\n8.deleterear\n");
          printf("Enter choice\n");
          scanf("%d",&ch);
          switch(ch)
