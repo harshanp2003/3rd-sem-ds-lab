@@ -48,7 +48,7 @@ void ord(struct root *r,int ch)
                
                break;
         case 2:ord(r->llink,2);
-               printf(" %d  ",r->data);
+               printf(" %d ",r->data);
                ord(r->rlink,2);
                break;
         case 3:ord(r->llink,3);
@@ -76,14 +76,14 @@ struct root * search(struct root *r,int key)
     
     if(key<r->data)
     { 
-         if(r->llink->data==key && r->llink!=NULL)printf("parent node value : %d \n",r->data); 
+         if(r->llink!=NULL &&  r->llink->data==key )printf("parent node value : %d \n",r->data); 
                    
         return search(r->llink,key);
       
     }
     if(key>r->data)
     {
-         if(r->rlink->data==key && r->rlink!=NULL) printf("parent node value : %d \n",r->data);
+         if( r->rlink!=NULL &&  r->rlink->data==key) printf("parent node value : %d \n",r->data);
                  
          return search(r->rlink,key);
     }
@@ -122,7 +122,7 @@ int main()
     scanf("%d",&r->data);
     while(1)
   {
-        printf("1.Build tree\n2.Preorder\n3.Inorder\n4.Postorder\n5.search\n6.totalnodes\n7.height\n8.exit");
+        printf("\n1.Build tree\n2.Preorder\n3.Inorder\n4.Postorder\n5.search\n6.totalnodes\n7.height\n8.exit");
         printf("\nEnter choice\n");
         scanf("%d",&ch);
         switch(ch)
@@ -147,7 +147,7 @@ int main()
                break;
         case 6:printf("%d is total no of node\n",totalnodes(r));
                break;
-        case 7:printf("total height is %d ",height(r));
+        case 7:printf("total height is %d \n",height(r));
                break;
         case 8:exit(0);
        default:printf("Invalid choice\n");
