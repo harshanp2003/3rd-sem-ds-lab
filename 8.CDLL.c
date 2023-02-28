@@ -1,4 +1,4 @@
-#include <stdio.h> //only insertbyorder need to be updated and rectified
+#include <stdio.h> // initailly display first then go for insert by order functtion insert at random position and sort it then display
 #include<stdlib.h>
 struct node
 {
@@ -6,10 +6,11 @@ struct node
     struct node *next;
     struct node *prev;
 }*first;
+int n;
 struct node *create(struct node *first)
 {
     struct node *l,*tp;
-    int n,data,i;
+    int data,i;
      printf("Enter the no of nodes\n");
     scanf("%d",&n);
     printf("Enter the data for the 1st node\n");
@@ -33,14 +34,11 @@ struct node *create(struct node *first)
     l->next=first;
     first->prev=l;
 }
-struct node *insert(struct node *first)
+struct node *insert(struct node *first,int pos,int data)
 {
     struct node *l,*tp1;
-    int i,data,pos;
-     printf("Enter the position to be inserted\n");
-    scanf("%d",&pos);
-    printf("Enter the data\n");
-    scanf("%d",&data);
+    int i;
+    
     if(pos==1)
     {
         tp1=malloc(sizeof(struct node));
@@ -161,12 +159,12 @@ struct node *delete(struct node *first)
 }
  int main()
 {
-    int key,pos,count,ch;
+    int data,key,pos,count,ch;
   
    
    while(1)
    {
-       printf("1.Create\n2.display\n3.search\n4.insertbyorder(sort)\n5.delete\n6.exit\n");
+       printf("1.Create\n2.display\n3.search\n4.insertbyorder\n5.delete\n6.exit\n");
        printf("Enter choice\n");
        scanf("%d",&ch);
        switch(ch)
@@ -179,7 +177,10 @@ struct node *delete(struct node *first)
                   scanf("%d",&pos);
                   search(first,pos);
                   break;
-            case 4:first=sort(first,count);
+            case 4:printf("Enter data\n");
+                   scanf("%d",&data);
+                   first=insert(first,n,data);
+                   first=sort(first,count+1);
                    break;
             case 5:first=delete(first);
                    break;
