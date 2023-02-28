@@ -33,6 +33,7 @@ struct node *create(struct node *first)
     }
     l->next=first;
     first->prev=l;
+    return first;
 }
 struct node *insert(struct node *first,int pos,int data)
 {
