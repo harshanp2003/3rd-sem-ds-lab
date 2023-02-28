@@ -98,15 +98,11 @@ void search(struct node *first,int pos)
      printf("%d is the data at positon %d\n",l->data,pos1);
     
 }
-struct node *delete(struct node *first)
- {
-     int i,x,pos;
-     struct node *l,*p,*q,*a;
-     printf("Enter the position to be deleted\n");
-    scanf("%d",&pos);
-    if(pos==1)
-     {
-         p=first;
+struct node *deletefront(struct node *first)
+{
+    int x;
+    struct node *p,*l;
+     p=first;
       first=first->next;
      for(l=first;l->next!=p;l=l->next)
      {}
@@ -116,25 +112,26 @@ struct node *delete(struct node *first)
       free(p);
       printf("Deleted data is : %d\n",x);
       return first;
-     }
-     else
-     {
-         a=first;
-         q=NULL;
-         for(i=0;i<pos-1;i++)
-        {
-            q=a;
-            a=a->next;
-        }
-        q->next=a->next;
-        a->next->prev=q;
-        
-        x=a->data;
-            printf("Deleted data is : %d\n",x);
-        free(a);
-        return first;
-     } 
- }
+}
+struct node *deleterear(struct node *first)
+{
+    int x;
+    
+    struct node *p=first,*q=NULL;
+    while(p->next!=first)
+    {
+        q=p;
+        p=p->next;
+    }
+    q->next=first;
+    first->prev=q;
+    x=p->data;
+     printf("Deleted data is : %d\n",x);
+    free(p);
+    
+    return first;
+}
+
  struct node *sort(struct node *first,int count)
 {
     int j,i,swp;
@@ -164,7 +161,7 @@ struct node *delete(struct node *first)
    
    while(1)
    {
-       printf("1.Create\n2.display\n3.search\n4.insertbyorder\n5.delete\n6.exit\n");
+       printf("1.Create\n2.display\n3.search\n4.insertbyorder\n5.deletefront\n6.exit\n7.deleterear\n");
        printf("Enter choice\n");
        scanf("%d",&ch);
        switch(ch)
@@ -182,9 +179,11 @@ struct node *delete(struct node *first)
                    first=insert(first,n,data);
                    first=sort(first,count+1);
                    break;
-            case 5:first=delete(first);
+            case 5:first=deletefront(first);
                    break;
             case 6:exit(0);
+            case 7:first=deleterear(first);
+                   break;
             default:printf("Invalid choice\n");
        }
    }
