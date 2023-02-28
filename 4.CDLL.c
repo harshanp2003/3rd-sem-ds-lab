@@ -1,4 +1,4 @@
-#include <stdio.h> //only insert by order fn need to be rectified
+#include <stdio.h> //inserting at any random position and then sorting and displaying
 #include<stdlib.h>
 struct node
 {
@@ -6,10 +6,11 @@ struct node
     struct node *next;
     struct node *prev;
 }*first;
+int n;
 struct node *create(struct node *first)
 {
     struct node *l,*tp;
-    int n,data,i;
+    int data,i;
      printf("Enter the no of nodes\n");
     scanf("%d",&n);
     printf("Enter the data for the 1st node\n");
@@ -90,7 +91,7 @@ void search(struct node *first,int pos)
 struct node *deletebykey(struct node *first)
 {
     struct node *p,*q;
-    int f=0,x,key;
+    int i,count=0,f=0,x,key;
     p=first;
    q=NULL;
    printf("Enter key\n");
@@ -103,42 +104,94 @@ struct node *deletebykey(struct node *first)
            break;
        }
        p=p->next;
+       count++;
    }while(p!=first);
    if(f!=1)
    {
        printf("Key not present\n");
        return first;
    }
-   p=first;
- while(p!=NULL)
- {
-     if(first->data==key)
-     {
-         first=first->next;
-         x=first->data;
-         p=first;
-         free(p);
-         return first;
-     }
-     else 
-     {
-         if(p->data==key)
-         {
-             q->next=p->next;
-             x=p->data;
-             free(p);
-             return first;
-         }
-         
-     }
-     q=p;
-     p=p->next;
- }
  
+   if(f==1)
+   {
+       p=first;
+       q=first;
+       printf("Key present\n");
+       if(key==first->data)
+       {
+           
+           for(q=first;q->next!=first;q=q->next)
+           {}
+           first=first->next;
+           q->next=first;
+           first->prev=q;
+           x=p->data;
+           printf("%d is deleted data\n",x);
+           free(p);
+           return first;
+           
+       }
+       else
+       {
+           p=first;
+           q=NULL;
+           for(i=1;i<=count;i++)
+          {
+              q=p;
+               p=p->next;
+           }
+           q->next=p->next;
+           p->next->prev=q;
+           x=p->data;
+           printf("%d is deleted data\n",x);
+           
+           free(p);
+           return first;
+       }
+       
+       
+   }
 }
+struct node *insert(struct node *first,int pos,int data)
+{
+    struct node *l,*tp1;
+    int i;
+    
+    
+    if(pos==1)
+    {
+        tp1=malloc(sizeof(struct node));
+        tp1->data=data;
+        tp1->next=first;
+       
+        for(l=first;l->next!=first;l=l->next)
+        { }
+        l->next=tp1;
+         tp1->prev=l;
+        first=tp1;
+        return first;
+    }
+    else 
+    {
+        l=first;
+        
+        while(pos!=2)
+        {
+            l=l->next;
+            pos--;
+        }
+        tp1=malloc(sizeof(struct node));
+        tp1->data=data;
+        tp1->next=l->next;
+         tp1->prev=l;
+        l->next=tp1;
+        return first;
+    }
+}
+
  int main()
 {
-    int pos,count,ch;
+    int data,pos,count,ch;
   
    
    while(1)
@@ -156,7 +209,10 @@ struct node *deletebykey(struct node *first)
                   scanf("%d",&pos);
                   search(first,pos);
                   break;
-            case 4:first=sort(first,count);
+            case 4:printf("Enter data\n");
+                   scanf("%d",&data);
+                   first=insert(first,n,data);
+                   first=sort(first,count+1);
                    break;
             case 5:first=deletebykey(first);
                    break;
