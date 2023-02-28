@@ -59,111 +59,49 @@ void ord(struct root *r,int ch)
                 break;
     }
 }
-struct root * search(struct root *r,int key)
+struct root *ord_del(struct root *r)
 {
-    
-    if(r==NULL)
+    if(r->llink==NULL)
+        return r;
+    struct root *t=ord_del(r->llink);
+    if(t->llink==NULL && t->rlink==NULL && r->llink->data==t->data)//leaf
     {
-        printf("Key not found\n");
-        return NULL;
+        r->llink=NULL;
+        return t;
     }
-       
-    if(key==r->data)
+    if(t->llink==NULL && t->rlink!=NULL)//having right child
     {
-        printf("Key found : value is= %d \n",key);
+       r->llink=t->rlink;
+       return t;
+    }
+    return t;
+}
+struct root *del(struct root *r,int k)
+{
+    if(r->data==k && r->llink==NULL && r->rlink==NULL)//leaf
+        return NULL;
+    if(r->data==k && (r->llink==NULL && r->rlink!=NULL))//having right child
+        return r->rlink;
+    if(r->data==k && (r->llink!=NULL && r->rlink==NULL))//having left child
+        return r->llink;
+    if(r->data==k && r->llink!=NULL && r->rlink!=NULL)//having both child
+    {
+        struct root *t=ord_del(r->rlink);
+        if(r->rlink->data==t->data)//immeadiate child
+        {
+            r->rlink=t->rlink==NULL?NULL:t->rlink;
+        }
+        r->data=t->data;
         return r;
     }
-    
-    if(key<r->data)
-    { 
-         if(r->llink->data==key && r->llink!=NULL)printf("parent node value : %d \n",r->data); 
-                   
-        return search(r->llink,key);
-      
-    }
-    if(key>r->data)
-    {
-         if(r->rlink->data==key && r->rlink!=NULL) printf("parent node value : %d \n",r->data);
-                 
-         return search(r->rlink,key);
-    }
-    
-    
-}  
-int totalnodes(struct root *r)
-{
-    if(r==NULL)
-        return 0;
-    
-    int l=totalnodes(r->llink);
-    int rt=totalnodes(r->rlink);
-    return 1+l+rt;
-}
-int height(struct root *r)
-{
-    if(r==NULL || (r->rlink==NULL && r->llink==NULL) )
-       return 0;
-    else
-    {
-        int lh=height(r->llink);
-        int rh=height(r->rlink);
-      if(lh>rh)
-          return (lh+1);
-      else
-        return (rh+1);
-    }
-    
-}
-struct root *inOrder_Predecessor(struct root *r)
-{
-    r = r->llink;
-    while (r->rlink != NULL)
-    {
-        r = r->rlink;
-    }
+    if(k<r->data)
+        r->llink=del(r->llink,k);
+    if(k>r->data)
+        r->rlink=del(r->rlink,k);
     return r;
 }
-struct root* delete(struct root *r, int key)
-{
-    // Base case.
-    if (r == NULL) {
-        printf(" root node not found\n");
-        return NULL;
-    }
-    if (r->data > key) r->llink = delete(r->llink, key);
-    else if (r->data < key) r->rlink = delete(r->rlink, key);
-    // delete the found node.
-    else
-    {
-        // Case 1: No child. Leaf node found.
-        if (r->llink == NULL && r->rlink == NULL)
-        {
-             free(r);
-            r = NULL;
-        }
-        // Case 2: 1 child.
-        else if (r->llink == NULL)
-        {
-            struct root *ptr = r;
-            r = r->rlink;
-            free(ptr);
-        }
-        else if (r->rlink == NULL)
-        {
-            struct root *ptr = r;
-            r = r->llink;
-            free(ptr);
-        }
-        // Case 3: 2 children.
-        else
-        {
-            struct root *iPre = inOrder_Predecessor(r);
-            r->data = iPre->data;
-            r->llink = delete(r->llink, iPre->data); // delete the duplicate from the llink subtree.
-        }
-    }
-    return r;
-}
+
+
 int main()
 {
     struct root *r=malloc(sizeof(struct root));
@@ -171,7 +109,7 @@ int main()
     printf("Enter the value of root node\n");
     scanf("%d",&r->data);
     
-    printf("1.Build tree\n2.Preorder\n3.Inorder\n4.Postorder\n5.search\n6.totalnodes\n7.height\n8.exit");
+    printf("1.Build tree\n2.Preorder\n3.Inorder\n4.Postorder\n9.delete\n8.exit");
     
     while(1)
   {
@@ -193,18 +131,11 @@ int main()
               ord(r,3);
               break;
         
-        case 5:printf("Enter key\n");
-               scanf("%d",&key);
-               search(r,key);
-               break;
-        case 6:printf("%d is total no of node\n",totalnodes(r));
-               break;
-        case 7:printf("total height is %d ",height(r));
-               break;
+      
         case 8:exit(0);
         case 9:printf("Enter key\n");
                scanf("%d",&key);
-               r=delete(r,key);
+               r=del(r,key);
        default:printf("Invalid choice\n");
                break;
     }
