@@ -28,6 +28,10 @@ void Push(struct stack *st,int x)
     if(st->top==st->size-1)
     {
          printf("Stack Overflow\n");
+         printf("Reallocating\n");
+         st->s=realloc(st->s,2*st->size*sizeof(int));
+          st->top++;
+        st->s[st->top]=x;
     }
    
     else
@@ -51,6 +55,7 @@ void Display(struct stack *st)
     {
         printf("%d ",st->s[i]);
     }
+    printf("\n");
 }
 int main()
 {
@@ -60,7 +65,7 @@ int main()
      int index,r,ch,n;
      while(1)
      {
-         printf("\n0.Create\n1.Push\n2.Display\n3.Pop\n4.exit\n");
+         printf("0.Create\n1.Push\n2.Display\n3.Pop\n4.exit\n");
          printf("Enter your choice\n ");
          scanf("%d",&ch);
          switch(ch)
@@ -69,7 +74,7 @@ int main()
                     Create(st);
                     break;
              case 1:
-                    printf("\nEnter the element\n");
+                    printf("Enter the element\n");
                     scanf("%d",&n);
                     Push(st,n);
                     break;
