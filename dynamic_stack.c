@@ -54,7 +54,8 @@ void Display(struct stack *st)
 }
 int main()
 {
-    struct stack st;
+    struct stack *st;
+    st=malloc(sizeof(struct stack));
     
      int index,r,ch,n;
      while(1)
@@ -65,18 +66,18 @@ int main()
          switch(ch)
          {
              case 0:
-                    Create(&st);
+                    Create(st);
                     break;
              case 1:
                     printf("\nEnter the element\n");
                     scanf("%d",&n);
-                    Push(&st,n);
+                    Push(st,n);
                     break;
             case 2:
-                    Display(&st);
+                    Display(st);
                     break;
             case 3:
-                   Pop(&st);
+                   Pop(st);
                    break;
             case 4:
                    exit(0);
