@@ -136,9 +136,9 @@ int main()
         case 9:printf("Enter key\n");
                scanf("%d",&key);
                r=del(r,key);
+               break;
        default:printf("Invalid choice\n");
                break;
     }
   }
     
-}
